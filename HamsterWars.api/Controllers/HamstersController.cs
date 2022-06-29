@@ -31,7 +31,9 @@ namespace HamsterWars.api.Controllers
         public async Task<ActionResult<IEnumerable<Hamster>>> randomizer()
         {
             var max = await _context.Hamsters.CountAsync();
-            var min = await _context.Hamsters.OrderBy(x => x.Id).FirstOrDefaultAsync();
+            var min = await _context.Hamsters
+                .OrderBy(x => x.Id)
+                .FirstOrDefaultAsync();
 
             Hamster? hamster = null;
 
@@ -61,7 +63,8 @@ namespace HamsterWars.api.Controllers
             {
                 return NotFound();
             }
-            var hamster = await _context.Hamsters.FindAsync(id);
+            var hamster = await _context.Hamsters
+                .FindAsync(id);
 
             if (hamster == null)
             {
@@ -125,7 +128,8 @@ namespace HamsterWars.api.Controllers
             {
                 return NotFound();
             }
-            var hamster = await _context.Hamsters.FindAsync(id);
+            var hamster = await _context.Hamsters
+                .FindAsync(id);
             if (hamster == null)
             {
                 return NotFound();
@@ -139,7 +143,9 @@ namespace HamsterWars.api.Controllers
 
         private bool HamsterExists(int id)
         {
-            return (_context.Hamsters?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Hamsters?
+                .Any(e => e.Id == id))
+                .GetValueOrDefault();
         }
     }
 }
